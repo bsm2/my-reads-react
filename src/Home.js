@@ -47,7 +47,7 @@ export default class Home extends Component {
                 </div>
                 </div>
                 <div className="open-search">
-                    <Link to="/search" className="open-search">Add a book</Link>
+                    <Link to="/search" className="open-search" >Add a book</Link>
                 </div>
             </div>
         )

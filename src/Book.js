@@ -25,7 +25,7 @@ export default class Book extends Component {
                     wantToRead:books.filter(book=>book.shelf ==="wantToRead" ),
                     read:books.filter(book=>book.shelf ==="read" )
                 }))
-                this.props.changeShelf(result,books,this.state.currentlyReading,this.state.wantToRead,this.state.read)
+                this.props.changeShelf(result,shelf,book,this.state.currentlyReading,this.state.wantToRead,this.state.read)
             });
            
             
@@ -54,12 +54,12 @@ export default class Book extends Component {
                         <div className="book-shelf-changer" >
                             
                             <select name="changer" value={this.props.shelf} onChange={this.handleChange} >                               
-                                <option value="move" >Move to...</option>
-                                
+                                <option value="move" disabled >Move to...</option>
+                                <option value="none" >None</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
-                                <option value="none">None</option>
+                               
                             </select>
                         </div>
                     </div>
