@@ -8,7 +8,8 @@ export default class Search extends Component {
         query:'',
         books:[],
         shelf:"",
-        allbooks:[]
+        allbooks:[],
+        book:{}
 
     }
 
@@ -50,10 +51,17 @@ export default class Search extends Component {
     }
     
     
-    changeShelf = (result,shelf,book,currentlyReading,wantToRead,read)=>{
-        book.shelf=shelf
-
-        this.setState({message:`book added to ${shelf}`,shelf:shelf})
+    changeSshelf = async (result,shelf,book,currentlyReading,wantToRead,read)=>{
+        let {books}=this.state
+        await books.map(b=>{
+            book.id===b.id? b.shelf=shelf : b.shelf="None"
+            console.log( b.shelf)
+            
+        })
+           
+            
+          this.setState({shelf,books})
+        console.log(books)
         
         
     }
@@ -101,7 +109,7 @@ export default class Search extends Component {
                 </div>
                 </div>
                 <div className="search-books-results">
-                    <div>{books&&console.log(books.shelf)}</div>
+                    <div>{console.log(this.state.message)}</div>
                     { 
                         books&& books.map((book)=>{
                             let findedBook= allbooks.find(allbook=>book.id===allbook.id)
@@ -116,7 +124,7 @@ export default class Search extends Component {
                     
                     books && books.map((book ) => (
                         
-                        book.imageLinks && <Book key={book.id} title={book.title} authors={book.authors} image={book.imageLinks.thumbnail} book={book} changeShelf={this.changeShelf} shelf={book.shelf} />
+                        book.imageLinks && <Book key={book.id} title={book.title} authors={book.authors} image={book.imageLinks.thumbnail} book={book} changeShelf={this.changeSshelf} shelf={book.shelf} />
                         
                         ))}
                 </ol>

@@ -30,7 +30,7 @@ export default class Home extends Component {
 
         
     }
-    changeShelf = (result,books,currentlyReading,wantToRead,read)=>{this.setState({result,books,currentlyReading,wantToRead,read})}
+    changeShelf = (result,shelf,books,currentlyReading,wantToRead,read)=>{this.setState({result,books,currentlyReading,wantToRead,read})}
 
     render() {
         return (
@@ -47,7 +47,7 @@ export default class Home extends Component {
                 </div>
                 </div>
                 <div className="open-search">
-                    <Link to={{ pathname: '/search', state: { books:this.state.books} }} className="open-search" >Add a book</Link>
+                    <Link to="/search" className="open-search" >Add a book</Link>
                 </div>
             </div>
         )
