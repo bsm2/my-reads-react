@@ -12,27 +12,25 @@ export default class Search extends Component {
 
     }
 
-      componentDidMount() {
+      componentWillMount() {
         
+       
+      
         BooksAPI.getAll().then((allbooks) => {
             
-            this.setState(() => ({
-            allbooks:allbooks
+            this.setState((prevState) => ({
+            allbooks,
+            query:prevState.query
+            
             }))
-            console.log(this.state.allbooks.shelf)
+            console.log(this.state.query)
            
         })
         .catch(e=>console.log(e.message))
-        //   var cBook=this.state.currentlyReading.filter(b=> this.state.books.id==b.id)
 
-        if(this.state.books ==[]){
-            this.setState((prevsState)=>({
-                query:prevsState.query
-
-            }))
-
-        }
     }
+
+
 
     
     
@@ -45,9 +43,7 @@ export default class Search extends Component {
             this.setState(() => ({
                 books
             }))
-        })
-        
-        
+        }).catch(e=>console.log(e))
         
         // console.log(this.state.books.map(book=>book.shelf))
 
@@ -55,7 +51,7 @@ export default class Search extends Component {
     
     
     changeShelf = (result,shelf,book,currentlyReading,wantToRead,read)=>{
-        book.shelf=shelf
+        //book.shelf=shelf
         
         console.log(shelf)
         
@@ -67,7 +63,10 @@ export default class Search extends Component {
     
     render() {
         let { books ,query,allbooks} = this.state;
-       
+
+        console.log(this.state.allbooks)
+        
+          
        
         
         
@@ -99,19 +98,14 @@ export default class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <div>{console.log(this.state.allbooks.shelf)}</div>
-                    {
+                    { console.log(this.state.allbooks.shelf),
+                        allbooks&& allbooks.map(allbook=>
+                            (books&&  books.map(book=>
+                            
+                            (book.id === allbook.id ?  book.shelf=allbook.shelf:book.shelf="None"))))
+                      
                         
-                       allbooks&& allbooks.map(allbook=>(
-                         
-                          books&&  books.map(book=>(
-                            console.log( allbook.id !== book.id),
-                                 allbook.id !== book.id ? book.shelf="None":book.shelf==allbook.shelf
-                                 
-                            ))
-                            // book.id === allbook.id ? book.shelf=allbook.shelf:book.shelf="None" 
-                            
-                            
-                        ))
+                        
                     }
                 <ol className="books-grid">
                 {

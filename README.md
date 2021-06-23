@@ -1,7 +1,10 @@
 # MyReads Project
 
 1. my installition
-   - npm install react-router-dom module
+- to start my app follow this steps
+   - npm install
+   - npm start
+   
 
 2. i divided my app into compnents
    - book
