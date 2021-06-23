@@ -36,15 +36,29 @@ export default class Search extends Component {
     
     
     updateQuery = (query) => {
+        if(query){
+
+            BooksAPI.search(query).then((books,res) => {
+                console.log()
+                if (books.length >0) {
+                    this.setState(() => ({
+                        books
+                    }))
+                    
+                }else{
+                    this.setState(() => ({
+                        message:'no data founded',
+                        books:[]
+                    }))
+                }
+                
+            })
+
+        }
         this.setState(() => ({
-            query: query.trim()
+            query: query
         }))
-        BooksAPI.search(query.trim()).then((books) => {
-            console.log(books)
-            this.setState(() => ({
-                books
-            }))
-        }).catch(e=>console.log(e))
+        
         
         // console.log(this.state.books.map(book=>book.shelf))
 
@@ -61,7 +75,7 @@ export default class Search extends Component {
            
             
           this.setState({shelf,books})
-        console.log(books)
+        
         
         
     }
@@ -74,17 +88,7 @@ export default class Search extends Component {
 
         //console.log(allbooks)
         
-      
-        
 
-        
-          
-       
-        
-        
-        
-        
-           
         return (
             
             <div className="search-books">
@@ -109,24 +113,27 @@ export default class Search extends Component {
                 </div>
                 </div>
                 <div className="search-books-results">
-                    <div>{console.log(this.state.message)}</div>
+                    
                     { 
-                        books&& books.map((book)=>{
+                        
+                        books.length !==0 && books.map((book)=>{
                             let findedBook= allbooks.find(allbook=>book.id===allbook.id)
                             findedBook? book.shelf = findedBook.shelf:book.shelf ="None"
-                          }
-                              
-                              )
+                        })
                         
                     }
+                    
                 <ol className="books-grid">
                 {
-                    
-                    books && books.map((book ) => (
+                    query?
+                         books.length !==0 ? books.map((book ) => (
                         
-                        book.imageLinks && <Book key={book.id} title={book.title} authors={book.authors} image={book.imageLinks.thumbnail} book={book} changeShelf={this.changeSshelf} shelf={book.shelf} />
+                            book.imageLinks && <Book key={book.id} title={book.title} authors={book.authors} image={book.imageLinks.thumbnail} book={book} changeShelf={this.changeSshelf} shelf={book.shelf} />
                         
-                        ))}
+                         )
+                        ):<h1>no data founded</h1>
+                    : <h1>no data yet</h1>
+                }
                 </ol>
                 </div>
                
