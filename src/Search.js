@@ -12,7 +12,7 @@ export default class Search extends Component {
 
     }
 
-      componentWillMount() {
+      componentDidMount() {
         
        
       
@@ -51,10 +51,8 @@ export default class Search extends Component {
     
     
     changeShelf = (result,shelf,book,currentlyReading,wantToRead,read)=>{
-        //book.shelf=shelf
-        
-        console.log(shelf)
-        
+        book.shelf=shelf
+
         this.setState({message:`book added to ${shelf}`,shelf:shelf})
         
         
@@ -63,8 +61,14 @@ export default class Search extends Component {
     
     render() {
         let { books ,query,allbooks} = this.state;
+        // let {allbooks} = this.props.location.state
+        
 
-        console.log(this.state.allbooks)
+        //console.log(allbooks)
+        
+      
+        
+
         
           
        
@@ -97,14 +101,14 @@ export default class Search extends Component {
                 </div>
                 </div>
                 <div className="search-books-results">
-                    <div>{console.log(this.state.allbooks.shelf)}</div>
-                    { console.log(this.state.allbooks.shelf),
-                        allbooks&& allbooks.map(allbook=>
-                            (books&&  books.map(book=>
-                            
-                            (book.id === allbook.id ?  book.shelf=allbook.shelf:book.shelf="None"))))
-                      
-                        
+                    <div>{books&&console.log(books.shelf)}</div>
+                    { 
+                        books&& books.map((book)=>{
+                            let findedBook= allbooks.find(allbook=>book.id===allbook.id)
+                            findedBook? book.shelf = findedBook.shelf:book.shelf ="None"
+                          }
+                              
+                              )
                         
                     }
                 <ol className="books-grid">
